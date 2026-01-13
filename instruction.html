@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pAI Setup Instructions: Charlie Kirk AI Debate Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .note {
+            background: #e7f3ff;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>pAI Setup Instructions: Charlie Kirk AI Debate Bot</h1>
+        <!-- Block for Infinite Looping GIF: 
+            GIFs loop infinitely by default if created that way; added CSS for smooth playback and full width. -->
+        <div style="text-align: center; margin: 20px 0;">
+            <img src="materials/kirk demo 100%size.gif" alt="Kirk Demo Animation" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <p style="margin-top: 15px; font-style: italic; color: #555;">Welcome to pAI: Preserving the spirit of debate through AI. Dive into thoughtful conversations inspired by Charlie Kirk's ideas, fostering critical thinking for a better society.</p>
+        </div>
+    <p>This guide will help you set up and run the Charlie Kirk AI Debate Bot, part of the Personality AI (pAI) project. The bot simulates engaging debates in Kirk's style, drawing from his public ideas to foster critical thinking and truth-seeking dialogues. Follow these steps to get started.</p>
+
+    <h2>1. Download and Set Up LM Studio</h2>
+    <p>The bot requires a local language model server. We recommend LM Studio for its ease of use. It will host the fine-tuned model and provide the API endpoint.</p>
+    <ol>
+        <li>Download LM Studio from the official website: <a href="https://lmstudio.ai/" target="_blank">https://lmstudio.ai/</a>. Choose the version for your operating system (Windows, macOS, or Linux).</li>
+        <li>Install LM Studio by following the on-screen instructions. Once installed, open the application.</li>
+        <li>In LM Studio's search bar (usually at the top), type "Entz/gpt-oss-20b-pai-debator" to find the model.</li>
+        <li>Click on the model in the search results and select "Download".</li>
+        <li>Wait for the download to complete (it may take time depending on your internet; the model is ~13 GB).</li>
+        <li>Once downloaded, go to the "Local Inference Server" tab (or similar—look for the server icon in the sidebar).</li>
+        <li>Load the model: Select "Entz/gpt-oss-20b-pai-debator" from your downloaded models.</li>
+        <li>Start the server: Click "Start Server" (default port is 1234). Note the API URL—it should be something like <code>http://localhost:1234/v1/chat/completions</code>. You'll use this when the app is loaded.</li>
+        <li>Keep LM Studio running in the background while using the bot.</li>
+    </ol>
+    <div class="note">
+        <strong>Note:</strong> If the model isn't found, ensure you're searching the exact name. No API token is needed for local LM Studio servers—leave it blank when the app is loaded.
+    </div>
+
+    <h2>2. Install Python Dependencies</h2>
+    <p>The script requires a few Python libraries for the web interface and API calls.</p>
+    <ol>
+        <li>Ensure Python is installed (version 3.8+). Download from <a href="https://www.python.org/" target="_blank">python.org</a> if needed.</li>
+        <li>Create a file named <code>requirements.txt</code> with the following content:</li>
+    </ol>
+    <pre><code>gradio
+requests</code></pre>
+    <ol start="3">
+        <li>In your terminal/command prompt, run:
+            <pre><code>pip install -r requirements.txt</code></pre>
+        </li>
+        <li>Alternatively, install directly:
+            <pre><code>pip install gradio requests</code></pre>
+        </li>
+    </ol>
+
+    <h2>3. Download and Run the Script</h2>
+    <ol>
+        <li>Download the script file <code>ai_charlie_kirk.py</code> from this GitHub repository (click "Raw" and save as .py).</li>
+        <li>Open a terminal/command prompt and navigate to the directory containing the script (e.g., <code>cd path/to/folder</code>).</li>
+        <li>Run the script:
+            <pre><code>python ai_charlie_kirk.py</code></pre>
+        </li>
+        <li>The script will launch a configuration screen in your browser (e.g., at http://127.0.0.1:7860). Enter your LM Studio API URL (from Step 1, e.g., "http://localhost:1234/v1/chat/completions") and leave the API Token blank (or enter if required by your setup).</li>
+        <li>Click "Save & Start" to proceed to the chat interface.</li>
+    </ol>
+
+    <h2>4. Use the Chat Interface</h2>
+    <ol>
+        <li>Once the chat loads, you'll see "Debate AI Charlie Kirk • Classic Messenger Style" with a chat window.</li>
+        <li>Type your message in the bottom text box (e.g., a debate opener like "What's your view on meritocracy?").</li>
+        <li>Press Enter or click "Send". Your message appears on the right (blue bubble) with a timestamp.</li>
+        <li>A "Typing..." indicator shows while the AI generates a response.</li>
+        <li>The AI's reply appears on the left (gray bubble), building the conversation vertically.</li>
+        <li>Continue the dialogue—history is maintained for context.</li>
+        <!-- Block for Several Pictures: Insert this where you want a gallery of images (e.g., in a new section). 
+            This creates a responsive grid (adjusts to screen size). 
+            Add/remove <img> tags as needed for more/fewer pictures. -->
+        <div style="margin: 20px 0;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <img src="materials/demo.png" alt="Description of Picture 1" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <img src="materials/demo2.png" alt="Description of Picture 2" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            </div>
+            <p style="margin-top: 20px; text-align: center; font-style: italic; color: #555;">These images highlight the model successfully captured Charlie's confidence in his speech, and some phrases Charlie loves to say, e.g. "God bless!".</p>
+        </div>
+    </ol>
+    <div class="note">
+        <strong>Note:</strong> Responses align with Kirk's public ideas; test on familiar topics for best results. Report misalignments via GitHub issues.
+    </div>
+
+    <h2>5. Troubleshooting and Tips</h2>
+    <ul>
+        <li>If the API fails, check LM Studio is running and the URL is correct. Error messages will appear in the chat.</li>
+        <li>Conversation history: Up to 12 messages for context; clears on restart.</li>
+        <li>Stop the server: Press Ctrl+C in the terminal.</li>
+        <li>Customize: Edit SYSTEM_PROMPT in the script for tweaks.</li>
+        <li>For remote access: In the script, change <code>demo.launch()</code> to <code>demo.launch(server_name="0.0.0.0", share=True)</code> (use cautiously).</li>
+    </ul>
+
+    <p>Enjoy your debates! This is a tool for truth-seeking and cultural preservation—feedback welcome on GitHub.</p>
+</body>
+</html>
