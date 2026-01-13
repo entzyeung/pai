@@ -34,8 +34,6 @@ While functional, the current webapp has room for growth to realize our dream of
 
 ## Setup
 1. Clone the repo: `git clone https://github.com/entzyeung/pai.git`.
-2. Activate env (e.g., Conda): `conda activate pai`.
-3. Install deps: `pip install -r requirements.txt`.
-4. Run: `python main.py` (ensure LM Studio is running with the model).
+2. Then follow [this instruction page](instruction.html).
 
 Thank you for your interest—let's keep the flame of inquiry burning bright!
