@@ -1,4 +1,4 @@
-# iAI
+# pAI
 
 ## Project Intention
 This repository is the home for an innovative AI project dedicated to preserving the intellectual heritage of great thinkers through technology. At its core, it is designed to encourage users—especially the younger generation—to engage in thoughtful dialogues that seek truth, much like the Socratic method. By capturing the great thinkers' style, logic, and mindset of figures like Charlie Kirk (our first attempt) from publicly available resources (such as youtube videos, interviews, and debates), we aim to keep these treasures of human wisdom alive in a new, interactive form.
