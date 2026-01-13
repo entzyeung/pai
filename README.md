@@ -34,6 +34,6 @@ While functional, the current webapp has room for growth to realize our dream of
 
 ## Setup
 1. Clone the repo: `git clone https://github.com/entzyeung/pai.git`.
-2. Then follow [this instruction page](instruction.html).
+2. Then follow [this instruction page](instructions.md).
 
 Thank you for your interest—let's keep the flame of inquiry burning bright!
