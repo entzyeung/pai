@@ -5,16 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instructions - pAI Charlie Kirk AI Debate Bot</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         header { background: #007bff; color: white; padding: 10px; }
         nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; }
         nav ul li { margin: 0 15px; }
         nav ul li a { color: white; text-decoration: none; font-weight: bold; }
         nav ul li a:hover { text-decoration: underline; }
         footer { text-align: center; padding: 10px; background: #007bff; color: white; margin-top: 20px; }
-        img { max-width: 100%; height: auto; }
-        pre { background: #f8f8f8; padding: 10px; overflow-x: auto; }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .note {
+            background: #e7f3ff;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
         @media (max-width: 768px) { nav ul { flex-direction: column; } nav ul li { margin: 10px 0; } }
     </style>
 </head>
@@ -22,28 +59,33 @@
     <header>
         <nav>
             <ul>
+                <li><a href="https://github.com/entzyeung/pai">README in Github</a></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="instructions.html">Instructions</a></li>
                 <li><a href="issues.html">Issues</a></li>
             </ul>
         </nav>
-        <h1 style="text-align: center;">Instructions - pAI Charlie Kirk AI Debate Bot</h1>
+        <h1 style="text-align: center;">Instructions</h1>
     </header>
     <div class="container">
-        <h1>pAI Setup Instructions: Charlie Kirk AI Debate Bot</h1>
+        <h1>pAI: AI Charlie Debate Bot Setup Instructions</h1>
         <p>This guide will help you set up and run the Charlie Kirk AI Debate Bot, part of the Personality AI (pAI) project. The bot simulates engaging debates in Kirk's style, drawing from his public ideas to foster critical thinking and truth-seeking dialogues. Follow these steps to get started.</p>
         
         <!-- GIF -->
-        <img src="materials/kirk%20demo%20100%25size.gif" alt="Kirk Demo Animation" style="display: block; margin: 20px auto;">
+        <!-- Block for Infinite Looping GIF: 
+            GIFs loop infinitely by default if created that way; added CSS for smooth playback and full width. -->
+        <div style="text-align: center; margin: 20px 0;">
+            <img src="materials/kirk demo 100%size.gif" alt="Kirk Demo Animation" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <p style="margin-top: 15px; font-style: italic; color: #555;">Welcome to pAI: Preserving the spirit of debate through AI. Dive into thoughtful conversations inspired by Charlie Kirk's ideas, fostering critical thinking for a better society.</p>
+        </div>
         
-        <p><em>Welcome to pAI: Preserving the spirit of debate through AI. Dive into thoughtful conversations inspired by Charlie Kirk's ideas, fostering critical thinking for a better society.</em></p>
         
         <h2>1. Download and Set Up LM Studio</h2>
         <p>The bot requires a local language model server. We recommend LM Studio for its ease of use. It will host the fine-tuned model and provide the API endpoint.</p>
         <ol>
             <li>Download LM Studio from the official website: <a href="https://lmstudio.ai/">https://lmstudio.ai/</a>. Choose the version for your operating system (Windows, macOS, or Linux).</li>
             <li>Install LM Studio by following the on-screen instructions. Once installed, open the application.</li>
-            <li>In LM Studio's search bar (usually at the top), type "Entz/gpt-oss-20b-pai-debator" to find the model.</li>
+            <li>In LM Studio's search bar to download the model. Type "Entz/gpt-oss-20b-pai-debator" to find the model.</li>
             <li>Click on the model in the search results and select "Download".</li>
             <li>Wait for the download to complete (it may take time depending on your internet; the model is ~13 GB).</li>
             <li>Once downloaded, go to the "Local Inference Server" tab (or similar—look for the server icon in the sidebar).</li>
@@ -59,27 +101,26 @@
         <p>The script requires a few Python libraries for the web interface and API calls.</p>
         <ol>
             <li>Ensure Python is installed (version 3.8+). Download from <a href="https://www.python.org/">python.org</a> if needed.</li>
-            <li>Create a file named <code>requirements.txt</code> with the following content:</li>
+            <li>Download my <a href="requirements.txt" download>requirements.txt</a>.</li>
+            <li>In your terminal/command prompt, run: </li>
+            <pre><code>pip install gradio requests</code></pre>
         </ol>
-        <pre><code>gradio
-requests</code></pre>
-        <ol start="3">
-            <li>In your terminal/command prompt, run: <code>pip install -r requirements.txt</code></li>
-            <li>Alternatively, install directly: <code>pip install gradio requests</code></li>
-        </ol>
+
+
         
         <h2>3. Download and Run the Script</h2>
         <ol>
-            <li>Download the script file <code>ai_charlie_kirk.py</code> from this GitHub repository (click "Raw" and save as .py).</li>
-            <li>Open a terminal/command prompt and navigate to the directory containing the script (e.g., <code>cd path/to/folder</code>).</li>
-            <li>Run the script: <code>python ai_charlie_kirk.py</code></li>
-            <li>The script will launch a configuration screen in your browser (e.g., at http://127.0.0.1:7860). Enter your LM Studio API URL (from Step 1, e.g., "http://localhost:1234/v1/chat/completions") and leave the API Token blank (or enter if required by your setup).</li>
+            <li>Download the script file <a href="ai_charlie_kirk.py" download>ai_charlie_kirk.py</a> from this GitHub repository.</li>
+            <li>Open a terminal/PowerShell/command prompt and navigate to the directory containing the script, e.g., <pre><code>cd path/to/folder</code></pre></li>
+            <li>Run the script: <pre><code>python ai_charlie_kirk.py</code></pre></li>
+            <li>The script will launch a configuration screen in your browser (e.g., at http://0.0.0.0:7860). Enter your LM Studio API URL (from Step 1, e.g., "http://localhost:1234/v1/chat/completions") and leave the API Token blank (or enter if required by your setup).</li>
+            <img src="materials/The script will launch a configuration screen in your browser.png" alt="You will see the pop up screen like this." style="max-width: 80%; height: auto; display: block; margin: 0 auto; ">
             <li>Click "Save & Start" to proceed to the chat interface.</li>
         </ol>
         
         <h2>4. Use the Chat Interface</h2>
         <ol>
-            <li>Once the chat loads, you'll see "Debate AI Charlie Kirk • Classic Messenger Style" with a chat window.</li>
+            <li>Once the chat loads, you'll see "AI Charlie Debate Bot" with a chat window.</li>
             <li>Type your message in the bottom text box (e.g., a debate opener like "What's your view on meritocracy?").</li>
             <li>Press Enter or click "Send". Your message appears on the right (blue bubble) with a timestamp.</li>
             <li>A "Typing..." indicator shows while the AI generates a response.</li>
@@ -87,10 +128,13 @@ requests</code></pre>
             <li>Continue the dialogue—history is maintained for context.</li>
         </ol>
         
-        <img src="materials/demo.png" alt="Description of Picture 1">
-        <img src="materials/demo2.png" alt="Description of Picture 2">
-        
-        <p><em>These images highlight the model successfully captured Charlie's confidence in his speech, and some phrases Charlie loves to say, e.g. "God bless!".</em></p>
+        <div style="margin: 20px 0;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <img src="materials/demo.png" alt="Description of Picture 1" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <img src="materials/demo2.png" alt="Description of Picture 2" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            </div>
+            <p style="margin-top: 20px; text-align: center; font-style: italic; color: #555;">These images highlight the model successfully captured Charlie's confidence in his speech, and some phrases Charlie loves to say, e.g. "God bless!".</p>
+        </div>
         
         <blockquote>
             <p><strong>Note:</strong> Responses align with Kirk's public ideas; test on familiar topics for best results. Report misalignments via GitHub issues.</p>
@@ -107,7 +151,7 @@ requests</code></pre>
         
         <p>Enjoy your debates! This is a tool for truth-seeking and cultural preservation—feedback welcome on GitHub.</p>
         
-        <a href="index.html" style="background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Back to Home page</a>
+        <a href="https://entzyeung.github.io/pai/" style="background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Back to Home page</a>
     </div>
     <footer>
         <p>&copy; 2026 pAI Project. All rights reserved. <a href="#top" style="color: white;">Back to Top</a></p>

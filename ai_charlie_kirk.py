@@ -223,8 +223,8 @@ with gr.Blocks() as demo:
         gr.Markdown("Enter your model server details (both fields required to proceed)")
         url_input = gr.Textbox(
             label="Model Server URL",
-            placeholder="https://xxx.com/v1/chat/completions",
-            value="https://xxx.com/v1/chat/completions"
+            placeholder="http://localhost:1234/v1/chat/completions",
+            value="http://localhost:1234/v1/chat/completions"
         )
         token_input = gr.Textbox(
             label="API Token (Use your own API token)",
@@ -235,7 +235,7 @@ with gr.Blocks() as demo:
 
     # Chat screen (hidden at start)
     with gr.Column(visible=False) as chat_column:
-        gr.Markdown("### AI Charlie Kirk • Classic Messenger Style")
+        gr.Markdown("### AI Charlie Debate Bot")
 
         chat_display = gr.HTML(
             elem_classes="chat-container",

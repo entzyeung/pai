@@ -1,0 +1,4 @@
+# requirements.txt - pinned versions (very stable as of Jan 2025)
+
+gradio==4.44.1
+requests==2.32.3
