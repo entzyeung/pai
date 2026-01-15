@@ -13,9 +13,28 @@
         nav ul li a { color: white; text-decoration: none; font-weight: bold; }
         nav ul li a:hover { text-decoration: underline; }
         footer { text-align: center; padding: 10px; background: #007bff; color: white; margin-top: 20px; }
-        .video-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 20px 0; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        img { max-width: 100%; height: auto; }
+        .video-container {
+            position: relative;
+            width: 60%; /* Set container to 60% width */
+            margin: 20px auto; /* Center with auto margins (top/bottom 20px, left/right auto) */
+            padding-bottom: 56.25%; /* Maintain 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* Fill the container fully */
+            height: 100%;
+            border: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
         @media (max-width: 768px) { nav ul { flex-direction: column; } nav ul li { margin: 10px 0; } }
     </style>
 </head>
@@ -28,7 +47,7 @@
                 <li><a href="issues.html">Issues</a></li>
             </ul>
         </nav>
-        <h1 style="text-align: center;">pAI - Charlie Kirk AI Debate Bot</h1>
+        <h1 style="text-align: center;">pAI</h1>
     </header>
     <div class="container">
         <h2>Demo Video</h2>
