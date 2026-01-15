@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pAI - Charlie Kirk AI Debate Bot</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        header { background: #007bff; color: white; padding: 10px; }
+        nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; }
+        nav ul li a:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 10px; background: #007bff; color: white; margin-top: 20px; }
+        .video-container { text-align: center; margin: 20px 0; }
+        img { max-width: 100%; height: auto; }
+        @media (max-width: 768px) { nav ul { flex-direction: column; } nav ul li { margin: 10px 0; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="instructions.html">Instructions</a></li>
+                <li><a href="issues.html">Issues</a></li>
+            </ul>
+        </nav>
+        <h1 style="text-align: center;">pAI - Charlie Kirk AI Debate Bot</h1>
+    </header>
+    <div class="container">
+        <h1>pAI</h1>
+        <h2>Project Intention</h2>
+        <p>This repository is the home for an innovative AI project dedicated to preserving the intellectual heritage of great thinkers through technology. At its core, it is designed to encourage users—especially the younger generation—to engage in thoughtful dialogues that seek truth, much like the Socratic method. By capturing the great thinkers' style, logic, and mindset of figures like Charlie Kirk (our first attempt) from publicly available resources (such as youtube videos, interviews, and debates), we aim to keep these treasures of human wisdom alive in a new, interactive form.</p>
+        <p>My personal journey into this began during my undergraduate philosophy course, where I achieved 100% attendance for both lectures and tutorials—the only class where I did so. It instilled in me a profound belief that truth emerges through rigorous debate, echoing Socrates' advocacy for questioning and discourse. This inspired the choice of Charlie Kirk as our starting point: his public work resonates with this philosophy, emphasizing critical thinking and values that foster personal and communal growth. Abundant resources like his YouTube debates provide a rich foundation to model his approach authentically.</p>
+        <p>This is the first step in a broader vision: Personality AI (pAI), where we create digital embodiments of influential minds. Using public materials—videos, audio, writings, and reports — we can distill their thinking methods, logic, and perspectives, much like how we learn from mentors in the real world. In the future, with time or contributions from like-minded individuals, we can expand to other great thinkers, ensuring their insights continue to inspire and guide humanity.</p>
+        <p>On a deeper societal level, this project stems from a concern for preserving mankind's treasures amid shifting cultural landscapes. I worry about the erosion of shared values that have long underpinned strong communities, leading to a sense that places like Britain and America — two pivotal pillars of human civilization — are not quite what they once were. By revitalizing debate and critical inquiry, we hope to contribute to making Britain great again and making America great again, focusing on unity, intellectual vitality, and the pursuit of truth for the betterment of society.</p>
+        <p>We're seeking collaborators who share this passion for cultural preservation and philosophical discourse. Whether you're from Turning Point UK Turning Point USA, or elsewhere, join us to refine this tool into one that sparks meaningful conversations and helps rebuild vibrant, thoughtful communities.</p>
+        
+        <h2>Key Features</h2>
+        <ul>
+            <li><strong>Fine-Tuned Model</strong>: Based on GPT-OSS-20B, infused with Kirk's philosophies from his video mainly in this first attempt. Available on Hugging Face: <a href="https://huggingface.co/Entz/gpt-oss-20b-pai-debator">Entz/gpt-oss-20b-pai-debator</a>.</li>
+            <li><strong>Webapp</strong>: Originally Supports text or audio input (via STT), generates Kirk-style responses, and clones them to voice using XTTS (CPU-based for broad accessibility). But in this first version, it's a simple text-based interface, because the audio input and output version takes too long to generate by using CPU only.</li>
+            <li><strong>Methodology</strong>: Offline data pipeline (extraction from youtube videos and online materials → text transcription → Harmony-formatted datasets → QLoRA fine-tuning). Emphasizes ethical use of public resources to capture authentic thinking patterns.</li>
+            <li><strong>Ethical Focus</strong>: Non-commercial; centered on societal improvement through debate, not division.</li>
+        </ul>
+        
+        <h2>Limitations of the Webapp</h2>
+        <p>While functional, the current webapp has room for growth to realize our dream of seamless, real-time interactions. Currently it is text based only, and has the following limitations that we're actively inviting developers to join and help us improve in future versions:</p>
+        <ul>
+            <li><strong>Video demo</strong>: Audio is added during post production. Besides the audio speech, captured in the video is a real time performance which is generated by the model <a href="https://huggingface.co/Entz/gpt-oss-20b-pai-debator">Entz/gpt-oss-20b-pai-debator</a> in real-time (hosted on my personal pc with RTX Pro 6000). The audio is added later using a voice cloning technique that uses the original Kirk's voice as reference.</li>
+            <li><strong>Audio Generation Delay</strong>: XTTS voice cloning on CPU takes ~20-30 seconds per response, leading to noticeable waits. We're exploring faster models like Bark or StyleTTS that could leverage GPUs for near-instant output. But as most models employing dependencies such as CUDA or cuDNN are not compatible with sm-120 instances, we're currently limited to CPU-based inference.</li>
+            <li><strong>Voice Consistency</strong>: Longer responses may sound varied; no sentence splitting or streaming yet, which could enhance naturalness.</li>
+            <li><strong>Scope of Responses</strong>: Excels on topics from Kirk's youtube videos (e.g., values, education); may feel generic on uncovered areas. Invite report any misalignments — I'll review the dataset to ensure fidelity when time available.</li>
+            <li><strong>Technical Constraints</strong>: CPU-only TTS due to GPU compatibility issues (e.g., RTX PRO 6000); STT via Whisper is accurate but adds minor processing time.</li>
+            <li><strong>Overall</strong>: This is a prototype—fast text responses shine, but audio lags. We're at the early stage, facing these hurdles, and eager for collaborators to optimize (e.g., GPU integration, streaming) and turn it into a polished tool for global discourse.</li>
+        </ul>
+        
+        <h2>How to Test & Contribute</h2>
+        <ul>
+            <li><strong>Testing Tips</strong>: Focus on topics Kirk has extensively covered (e.g., freedom in education, family values) for the best experience. Avoid niche subjects not in our dataset, as responses may resemble general AI outputs. Test debates to see how it embodies Socratic inquiry—question boldly!</li>
+            <li><strong>Feedback</strong>: If something doesn't align with Kirk's spirit or logic, open an issue with examples. I'll investigate the data to refine it.</li>
+            <li><strong>Join Us</strong>: Fork and PR for improvements like faster TTS, UI enhancements, or expansions to other thinkers. If you're passionate about revitalizing debate for societal good — perhaps adapting for UK contexts like Turning Point UK — let's collaborate! Together, we can make this a beacon for truth-seeking and cultural preservation.</li>
+        </ul>
+        
+        <h2>Setup</h2>
+        <ol>
+            <li>Clone the repo: <code>git clone https://github.com/entzyeung/pai.git</code>.</li>
+            <li>Then follow <a href="instructions.html">this instruction page</a>.</li>
+        </ol>
+        
+        <p>Thank you for your interest—let's keep the flame of inquiry burning bright!</p>
+        
+        <h2>Demo Video</h2>
+        <p>Watch this short demo to see the bot in action:</p>
+        <div class="video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Ffs1AKPxkBo?autoplay=1&mute=1&loop=1&playlist=Ffs1AKPxkBo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        
+        <p>Thank you for your interest—let's keep the flame of inquiry burning bright!</p>
+        
+        <!-- Links to code files for reference -->
+        <h2>Project Code Files</h2>
+        <ul>
+            <li><a href="01_pdf_text_extract_v2.ipynb" download>Download PDF Text Extraction Notebook</a></li>
+            <li><a href="02_txt_chapter_seperation.ipynb" download>Download Chapter Separation Notebook</a></li>
+            <li><a href="03_harmony_data_gen_dynamic_window_&_autoresume.py" download>Download Harmony Data Generation Script</a></li>
+            <li><a href="04_normalize_ASCII.ipynb" download>Download Normalization Notebook</a></li>
+            <li><a href="05_prepare_harmony_dataset.ipynb" download>Download Dataset Preparation Notebook</a></li>
+            <li><a href="06_train_unspill.py" download>Download Training Script</a></li>
+            <li><a href="08_upload_model.py" download>Download Model Upload Script</a></li>
+        </ul>
+    </div>
+    <footer>
+        <p>&copy; 2026 pAI Project. All rights reserved. <a href="#top" style="color: white;">Back to Top</a></p>
+    </footer>
+</body>
+</html>
