@@ -5,8 +5,11 @@ Watch this short demo to see the bot in action:
 [![pAI Demo Video](https://img.youtube.com/vi/Ffs1AKPxkBo/0.jpg)](https://youtu.be/Ffs1AKPxkBo)
 
 [Go TO Homepage](https://entzyeung.github.io/pai/)
+
 [Go TO Huggingface GGUF](https://huggingface.co/Entz/gpt-oss-20b-pai-debator)
+
 [Go TO Huggingface Transformer](https://huggingface.co/Entz/gpt-oss-20b-pai-kirk-transformers)
+
 [Go TO Huggingface Chatbot](https://huggingface.co/spaces/Entz/pai-kirk-debator)
 
 
