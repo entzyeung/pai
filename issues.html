@@ -56,41 +56,39 @@
                 <li><a href="issues.html">Issues</a></li>
             </ul>
         </nav>
-        <h1 style="text-align: center;">Issues - pAI Charlie Kirk AI Debate Bot</h1>
+        <h1 style="text-align: center;">Issues - pAI AI Charlie Debate Bot</h1>
     </header>
     <div class="container">
-        <h3>Documentation of Issues in the Charlie Kirk Debate Bot Project</h3>
-        <p>As of January 12, 2026, this document compiles all major issues encountered during the development and troubleshooting of the Charlie Kirk Debate Bot (a Gradio-based web app for text/voice debates with an AI mimicking Charlie Kirk, using LM Studio for text generation, faster-whisper for STT, and f5-tts-mlx for TTS/voice cloning). The project was initially on Windows with NVIDIA RTX PRO 6000 (Blackwell architecture, sm_120 compute capability) but shifted to Mac M1 (Apple Silicon).</p>
-        <p>These issues stem from the conversation history and were verified/expanded using web searches and repository browses. Many are inherent to the libraries, hardware, or 2026 ecosystem limitations and cannot be fully solved without major rewrites, hardware changes, or waiting for upstream updates. Where possible, workarounds are noted, but core problems persist.</p>
+        <h3>Documentation of Issues in the AI Charlie Debate Bot Project</h3>
+        <p>As of January 12, 2026, this document compiles the major issues encountered during the development and troubleshooting of the AI Charlie Debate ChatBot (a Gradio-based web app for text/voice debates with an AI mimicking Charlie Kirk, using LM Studio for text generation, faster-whisper for STT, and f5-tts-mlx for TTS/voice cloning). The project was initially on Windows with NVIDIA RTX PRO 6000 (Blackwell architecture, sm_120 compute capability) but shifted to Mac M1 (Apple Silicon).</p>
+
         
         <h4>1. Slow TTS Generation and Sound Output</h4>
         <ul>
-            <li><strong>Description</strong>: TTS audio generation takes 20–60+ seconds per response on Mac M1, making the app feel unresponsive. Even with quantized models (--q 4), output is too slow for real-time debate (e.g., sub-second ideal). On RTX PRO 6000, GPU acceleration doesn't help due to compatibility (see below).</li>
+            <li><strong>Description</strong>: TTS audio generation takes 20–60+ seconds per response on Mac M1, making the app feel unresponsive, though the quantized models (--q 4) output is amazing with 210+ TPS real-time on my RTX PRO 6000.(see below).</li>
             <li><strong>Causes</strong>:
                 <ul>
-                    <li>f5-tts-mlx optimized for Apple Silicon but still slow on M1/M2 (older chips); newer M3/M4 are faster, but M1 struggles with model load/inference.</li>
-                    <li>Quantization helps (4-bit faster than 8-bit), but quality drops, and first run is always slow (model load).</li>
-                    <li>From web search: Users report 1:2 speed ratio on M1 Pro (generation 2x slower than real-time), and rebooting improves but doesn't solve [web:11, web:20].</li>
+                    <li>f5-tts-mlx optimized for Apple Silicon but still slow on M1/M2 (older chips); newer M3/M4 are faster, but M1 struggles with model load/inference. Same slow on my PC too.</li>
+                    <li>Quantization is super fast. Waiting mainly comes from tts pc model.</li>
                 </ul>
             </li>
-            <li><strong>Attempts to Solve</strong>: Tried quantization, shorter prompts, debug prints to track subprocess — generation completes (return code 0) but latency remains high.</li>
-            <li><strong>Status</strong>: Unsolvable on M1 without switching TTS (e.g., to mlx-audio or Chatterbox-TTS, which are 2–5x faster on Apple Silicon per 2026 benchmarks [web:16, web:17]). No fix for real-time; expect 10–40s delays.</li>
+            <li><strong>Attempts to Solve</strong>: Tried prompts to reduce output, debug prints to track subprocess but latency remains high.</li>
+            <li><strong>Status</strong>: Seems unsolvable on M1 and GPU-less PC; or without switching models</li>
         </ul>
         
         <h4>2. Voice Cloning Quality: Garbled/Broken Sound, Not Speaking the Text</h4>
         <ul>
-            <li><strong>Description</strong>: Generated WAV files are uninterpretable noise/gibberish/artifacts instead of clear speech matching the text. Voice cloning fails to capture Charlie Kirk's timbre, prosody, or content accurately.</li>
+            <li><strong>Description</strong>: Generated WAV files sometimes are uninterpretable noise/gibberish/artifacts instead of clear speech matching the text. Voice cloning fails to capture Charlie Kirk's timbre, prosody, or content accurately.</li>
             <li><strong>Causes</strong>:
                 <ul>
-                    <li>Reference audio/ref-text mismatch: REF_TEXT too long/inaccurate/typo-filled (e.g., "collage" vs "college"); model expects exact, short transcription (5–10 words).</li>
-                    <li>Low quantization (--q 4) introduces artifacts/gibberish; higher q (8) better but slower [web:10, web:13].</li>
-                    <li>Reference clip quality: Even with 24kHz mono s16, if clip has noise/silence/multiple speakers, output collapses .</li>
-                    <li>From GitHub issues/browse: Open bugs in f5-tts-mlx for "weird artefacts, gibberish output" on Apple Silicon; unresolved as of 2026 [web:30, web:13, web:17]. Users report rebooting or new sessions helps temporarily, but quality inconsistent.</li>
+                    <li>Low quantization (--q 4) introduces artifacts/gibberish; higher q (8) better but slower.</li>
+                    <li>Reference clip quality: 24kHz mono s16, clip has no noise/silence/multiple speakers.</li>
+                    <li>From GitHub issues/browse: Open bugs in f5-tts-mlx for "weird artefacts, gibberish output" on Apple Silicon.</li>
                     <li>Standalone tests succeed with short audio, but app responses (longer text) exacerbate issues.</li>
                 </ul>
             </li>
             <li><strong>Attempts to Solve</strong>: Multiple conversions (ffmpeg to 24kHz/s16/mono), shortened REF_TEXT, higher q — standalone generates short clips, but quality poor; app output garbled.</li>
-            <li><strong>Status</strong>: Unsolvable with current f5-tts-mlx; switch to Tortoise-TTS or Chatterbox-TTS for better cloning on Apple Silicon (fewer artifacts per 2026 reviews [web:16, web:19]). Reference clip may need re-recording (clean, 5s, exact REF_TEXT match).</li>
+            <li><strong>Status</strong>: Unsolvable with current f5-tts-mlx.</li>
         </ul>
         
         <h4>3. No Support for RTX PRO 6000 (Blackwell GPU, sm_120 Architecture)</h4>
@@ -98,62 +96,15 @@
             <li><strong>Description</strong>: The app doesn't utilize the RTX PRO 6000 GPU on Windows/PC setup; CUDA compute capability sm_120 (Blackwell) not supported by key dependencies, forcing CPU fallback (slow/no acceleration).</li>
             <li><strong>Causes</strong>:
                 <ul>
-                    <li>PyTorch stable versions in early 2026 (e.g., 2.5–2.8) don't fully support sm_120; need nightly or 2.10+ for compatibility [web:1, web:4, web:7].</li>
-                    <li>STT (Whisper/faster-whisper) and TTS (Coqui XTTS/f5-tts) depend on PyTorch/TorchAudio; WhisperX explicitly incompatible with sm_120 [web:0, web:6].</li>
-                    <li>From NVIDIA forums/search: Blackwell RTX GPUs require CUDA 12.8+; older tools (TTS v0.22+) lag, no sm_120 in stable until late 2026 [web:4, web:7].</li>
-                    <li>f5-tts-mlx is MLX-only (Apple Silicon); no CUDA port for Blackwell.</li>
+                    <li>PyTorch stable versions in early 2026 (e.g., 2.5–2.8) don't fully support sm_120.
                 </ul>
             </li>
-            <li><strong>Attempts to Solve</strong>: Tried GPU enable in TTS (gpu=True), but deps fail compilation for sm_120. Suggested PyTorch nightly/CUDA 12.8, but user shifted to M1.</li>
-            <li><strong>Status</strong>: Unsolvable in current ecosystem; wait for PyTorch 3.0+ (full sm_120 in mid-2026) or use CPU fallback. For STT/TTS, alternatives like Whisper.cpp (C++ port) support Blackwell via CUDA updates .</li>
+            <li><strong>Attempts to Solve</strong>: Tried GPU enable in TTS (gpu=True), but deps fail compilation for sm_120. </li>
+            <li><strong>Status</strong>: Seems unsolvable in my current setup.</li>
         </ul>
         
-        <h4>4. STT Dependencies Don't Support sm_120 (Blackwell)</h4>
-        <ul>
-            <li><strong>Description</strong>: faster-whisper and openai-whisper can't use RTX PRO 6000 GPU; sm_120 not compiled in dependencies (CTranslate2, Torch).</li>
-            <li><strong>Causes</strong>:
-                <ul>
-                    <li>faster-whisper uses CTranslate2, which supports CUDA but lags for new architectures (sm_120 added in CTranslate2 v4.5+, but not stable until 2026 [web:0, web:5]).</li>
-                    <li>PyTorch/CUDA mismatch: Blackwell requires CUDA 12.8+; older Whisper versions use 12.4 [web:2, web:7].</li>
-                    <li>From search: RTX 5050/5090 users report no support in stable WhisperX until updates [web:0, web:2, web:6].</li>
-                </ul>
-            </li>
-            <li><strong>Attempts to Solve</strong>: Switched to faster-whisper on CPU (works on M1), but GPU acceleration impossible on Blackwell without custom builds.</li>
-            <li><strong>Status</strong>: Unsolvable short-term; use whisper.cpp (CoreML on M1 or CUDA on Blackwell) for better compatibility . Full support in Whisper v2.0 expected mid-2026.</li>
-        </ul>
-        
-        <h4>5. Hold-to-Record Button Not Clickable/Responsive</h4>
-        <ul>
-            <li><strong>Description</strong>: The "Hold to Record" button is dead — no response on click/hold, no mic prompt, no recording.</li>
-            <li><strong>Causes</strong>:
-                <ul>
-                    <li>JS selector mismatch in Gradio 6.3.0 (UI elements wrapped differently; :has-text invalid CSS).</li>
-                    <li>Browser mic permissions not prompted (Safari/Chrome quirks on M1).</li>
-                    <li>No event listeners attaching (pointerdown/up not firing).</li>
-                </ul>
-            </li>
-            <li><strong>Attempts to Solve</strong>: Added elem_id, robust selectors, console logs. Logs show button found, but events may not trigger (pointerleave/up not always reliable in touch/mouse mixed).</li>
-            <li><strong>Status</strong>: Unsolved; workaround: Use separate audio upload. For fix, try 'mousedown'/'mouseup' events instead of pointer. Or use Gradio's built-in Audio with microphone source (simpler, no JS).</li>
-        </ul>
-        
-        <h4>6. Other Minor/Unsolved Issues</h4>
-        <ul>
-            <li><strong>LM Studio Remote Latency</strong>: Responses slow due to https://my-lm-studio.entzai.com (network delay); local run faster but not on M1 (LM Studio not Apple Silicon native).</li>
-            <li><strong>Audio Speed Adjustment Garbled</strong>: speed_up_audio sometimes introduces artifacts at >1.2x speed (resampling issue).</li>
-            <li><strong>M1 Performance Limitations</strong>: Older chip (2020) struggles with MLX inference; M3/M4 recommended for 2–3x speed.</li>
-            <li><strong>General Ecosystem Gaps</strong>: In 2026, Apple Silicon TTS tools (f5-tts-mlx, mlx-audio) lag CUDA equivalents; Blackwell support incomplete in PyTorch deps [web:1, web:4, web:7].</li>
-        </ul>
-        
-        <h3>Overall Status & Recommendations</h3>
-        <p>This project highlights 2026 AI ecosystem challenges: Apple Silicon optimized but slow on older M1; Blackwell GPUs powerful but compatibility lags (sm_120 added late). Issues like garbled voice are common in zero-shot cloning [web:10, web:13, web:19].</p>
-        <p>Unsolvable without major changes:</p>
-        <ul>
-            <li>Switch TTS to Chatterbox-TTS or mlx-audio for better quality/speed on M1 [web:16, web:14].</li>
-            <li>For RTX PRO 6000: Use Coqui XTTS with CUDA 12.8+ PyTorch nightly (after compiling for sm_120).</li>
-            <li>Abandon custom JS button; use Gradio Audio with <code>sources=["microphone"]</code> for recording (simpler).</li>
-        </ul>
-        <p>If further development needed, consider paid services like ElevenLabs for reliable cloning (faster, better quality, but not open-source). Project is functional for text, but voice remains problematic.</p>
-    </div>
+        <h4>4. Hold-to-Record Button Not Clickable/Responsive</h4>
+
     <footer>
         <p>&copy; 2026 pAI Project. All rights reserved. <a href="#top" style="color: white;">Back to Top</a></p>
     </footer>
